@@ -10,6 +10,8 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 
@@ -34,7 +36,11 @@ public class RouterFunctionConfiguration {
      * 即可支持servlet规范，也可以支持自定义，比如netty
      * 以本例：
      *    定义get请求，并且返回所有的用户对象， URI:/person/find/all
-     *
+     *    Flux是 0-N个对象集合
+     *    Mono是 0-1个对象集合
+     *    Reative中的flux或者mono它是异步处理（非阻塞）
+     *    集合对象基本上是同步处理（阻塞）
+     *    Flux 或者 Mono 都是Publisher
      *注入的几种方式：
      *   方法注入，构造器注入，setget注入，字段注入，props注入
      *
@@ -42,9 +48,17 @@ public class RouterFunctionConfiguration {
      @Bean
      @Autowired //方法参数进行注入
      public RouterFunction<ServerResponse> personFindAll(UserRepository userRepository){//userRepository依赖进来保证数据的来源
-         Collection<User> users=userRepository.findAll();
-         //RouterFunctions.route(RequestPredicates.GET("/person/find/all"));
-         return null;
+
+         return RouterFunctions.route(RequestPredicates.GET("/person/find/all"),
+              request -> {
+                     //返回所有的用户对象
+                     Collection<User> users=userRepository.findAll();
+                     Mono<ServerResponse> response = null;
+                     Flux<User> userFlix =Flux.fromIterable(users);
+
+                     return ServerResponse.ok().body(userFlix,User.class);
+                 });
+
      }
 
 
