@@ -1,7 +1,7 @@
-package com.facetofront.repository;
+package facetofront.repository;
 
 
-import com.facetofront.domain.User;
+import facetofront.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;

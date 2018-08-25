@@ -1,4 +1,4 @@
-package com.facetofront.domain;
+package facetofront.domain;
 
 public class User {
 

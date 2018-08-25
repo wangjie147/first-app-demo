@@ -1,8 +1,8 @@
-package com.facetofront.Controller;
+package facetofront.Controller;
 
 
-import com.facetofront.domain.User;
-import com.facetofront.repository.UserRepository;
+import facetofront.domain.User;
+import facetofront.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +13,7 @@ public class UserController {
 
      //构造器方式进行注入
     ///////////////////////////////////////////////////////////
-     private final  UserRepository userRepository;
+     private final UserRepository userRepository;
      //userRepository这个是spring框架进行传递的，这里可以写@Autowired或者可以不写@Autowired
      @Autowired
      public UserController(UserRepository userRepository){

@@ -1,8 +1,8 @@
-package com.facetofront.config;
+package facetofront.config;
 
 
-import com.facetofront.domain.User;
-import com.facetofront.repository.UserRepository;
+import facetofront.domain.User;
+import facetofront.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
